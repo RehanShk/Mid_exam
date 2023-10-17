@@ -41,10 +41,12 @@ export default class Component extends React.Component{
         let usersData = [];
         const userName = this.state.name;
         const userAge = parseInt(this.state.age, 10);
+        const userCity = this.state.city;
+        const userOccup = this.state.occupation;
 
-        if(userName && userAge){
+        if(userName && userAge && userCity && userOccup){
             usersData = this.sampleData.filter(person => (
-                            person.name === userName && person.age === userAge
+                            person.name === userName && person.age === userAge && person.city === userCity && person.occupation === userOccup
                         ))
         }
         console.log(usersData);
@@ -55,9 +57,15 @@ export default class Component extends React.Component{
     }
 
     handleChange = (event) => {
-        const {name, value, type} = event.target;
+        const {name, value} = event.target;
         this.setState({
             [name] : value
+        });
+    }
+
+    resetData = ()=> {
+        this.setState({
+            user : []
         });
     }
 
@@ -106,19 +114,38 @@ export default class Component extends React.Component{
                 <div>
                     <form>
                         <label>Name : </label>
-                        <input type='text' name='name' value = {this.state.name} onChange={this.handleChange}></input>
+                        <input type='text' name='name' value = {this.state.name} onChange={this.handleChange}></input><br/>
                         <label>Age : </label>
-                        <input type='number' name='age' value = {this.state.age} onChange={this.handleChange}></input>
+                        <input type='number' name='age' value = {this.state.age} onChange={this.handleChange}></input><br/>
+                        <label>City : </label>
                         <select name='city' value = {this.state.city} onChange={this.handleChange}>
                             <option>Houston</option>
                             <option>Miami</option>
-                        </select>
+                            <option>San Francisco</option>
+                            <option>New York</option>
+                            <option>Atlanta</option>
+                            <option>Denver</option>
+                            <option>Los Angeles</option>
+                            <option>Seattle</option>
+                            <option>Chicago</option>
+                            <option>Boston</option>
+                        </select> <br/>
+                        <label>Occupation : </label>
                         <select name='occupation' value = {this.state.occupation} onChange={this.handleChange}>
-                            <option>Teacher</option>
-                            <option>Doctor</option>
-                        </select>
-                    </form>
+                            <option name='Teacher'>Teacher</option>
+                            <option name='Doctor'>Doctor</option>
+                            <option >Engineer</option>
+                            <option >Artist</option>
+                            <option >Software Engineer</option>
+                            <option>Lawyer</option>
+                            <option>Marketing Manager</option>
+                            <option>Artist</option>
+                            <option>Accountant</option>
+                            <option>Entrepreneur</option>
+                        </select><br/>
+                    </form><br/>
                     <button onClick={this.filterData}>Filter</button>
+                    <button onClick={this.resetData}>Reset</button>
                 </div>
             </div>
         )
