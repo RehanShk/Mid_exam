@@ -31,48 +31,96 @@ export default class Component extends React.Component{
             id : null,
             name : "",
             age : null,
-            city : "",
+            city : '',
             occupation : "",
-            user : new Set(),
+            user : [],
           }
+    }
+
+    filterData = (event) => {
+        let usersData = [];
+        const userName = this.state.name;
+        const userAge = parseInt(this.state.age, 10);
+
+        if(userName && userAge){
+            usersData = this.sampleData.filter(person => (
+                            person.name === userName && person.age === userAge
+                        ))
+        }
+        console.log(usersData);
+
+        this.setState({
+            user : usersData
+        });
+    }
+
+    handleChange = (event) => {
+        const {name, value, type} = event.target;
+        this.setState({
+            [name] : value
+        });
     }
 
     render(){
         return(
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>City</th>
-                    <th>Occupation</th>
-                </tr>
-                {
-                    this.sampleData.map((person, index) => (
+            <div>
+                <div>
+                    <table>
                         <tr>
-                            <td>{index}</td>
-                            <td><input type='text' name='name' value={person.name} onChange={this.handleChange}></input></td>
-                            <td><input type='number' name='age' value={person.age} onChange={this.handleChange}></input></td>
-                            <td>
-                                <select name='city' value={person.city} onChange={this.handleChange}>
-                                    <option>New York</option>
-                                    <option>Denver</option>
-                                    <option>Atlantic</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name='occupation' value={person.occupation} onChange={this.handleChange}>
-                                    <option>Engineer</option>
-                                    <option>Teacher</option>
-                                    <option>Doctor</option>
-                                </select>
-                            </td>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>City</th>
+                            <th>Occupation</th>
                         </tr>
-                    ))
-                }
+                        {
+                            this.state.user.length > 0 ? (
+                                this.state.user.map((person, index) => (
+                                    <tr key={index}>
+                                        <td key='id'>{person.id}</td>
+                                        <td key='name'>{person.name}</td>
+                                        <td key='age'>{person.age}</td>
+                                        <td key='city'>
+                                            {person.city}
+                                        </td>
+                                        <td key='occupation'>{person.occupation}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                this.sampleData.map((person, index) => (
+                                    <tr key={index}>
+                                        <td key='id'>{person.id}</td>
+                                        <td key='name'>{person.name}</td>
+                                        <td key='age'>{person.age}</td>
+                                        <td key='city'>
+                                            {person.city}
+                                        </td>
+                                        <td key='occupation'>{person.occupation}</td>
+                                    </tr>
+                                ))
+                            )
+                        }
 
-            </table>
-
+                    </table>
+                </div>
+                <div>
+                    <form>
+                        <label>Name : </label>
+                        <input type='text' name='name' value = {this.state.name} onChange={this.handleChange}></input>
+                        <label>Age : </label>
+                        <input type='number' name='age' value = {this.state.age} onChange={this.handleChange}></input>
+                        <select name='city' value = {this.state.city} onChange={this.handleChange}>
+                            <option>Houston</option>
+                            <option>Miami</option>
+                        </select>
+                        <select name='occupation' value = {this.state.occupation} onChange={this.handleChange}>
+                            <option>Teacher</option>
+                            <option>Doctor</option>
+                        </select>
+                    </form>
+                    <button onClick={this.filterData}>Filter</button>
+                </div>
+            </div>
         )
     }
 }
