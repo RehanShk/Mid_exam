@@ -49,6 +49,56 @@ export default class Component extends React.Component{
                             person.name === userName && person.age === userAge && person.city === userCity && person.occupation === userOccup
                         ))
         }
+        else if(userName && userAge){
+            usersData = this.sampleData.filter(person => (
+                            person.name === userName && person.age === userAge
+                        ))
+        }
+        else if(userCity && userOccup){
+            usersData = this.sampleData.filter(person => (
+                            person.city === userCity && person.occupation === userOccup
+                        ))
+        }
+        else if(userName){
+            usersData = this.sampleData.filter(person => (
+                            person.name === userName
+                        ))
+        }
+        else if(userAge){
+            usersData = this.sampleData.filter(person => (
+                            person.age === userAge
+                        ))
+        }
+        else if(userCity){
+            usersData = this.sampleData.filter(person => (
+                            person.city === userCity
+                        ))
+        }
+        else if(userOccup){
+            usersData = this.sampleData.filter(person => (
+                            person.occupation === userOccup
+                        ))
+        }
+        else if(userName && userOccup){
+            usersData = this.sampleData.filter(person => (
+                            person.name === userName && person.occupation === userOccup
+                        ))
+        }
+        else if(userName && userCity){
+            usersData = this.sampleData.filter(person => (
+                            person.name === userName && person.city === userCity
+                        ))
+        }
+        else if(userAge && userCity){
+            usersData = this.sampleData.filter(person => (
+                            person.age === userAge && person.city === userCity
+                        ))
+        }
+        else if(userAge && userOccup){
+            usersData = this.sampleData.filter(person => (
+                            person.age === userAge && person.occupation === userOccup
+                        ))
+        }
         console.log(usersData);
 
         this.setState({
